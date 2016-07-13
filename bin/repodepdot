@@ -1,0 +1,98 @@
+#!/usr/bin/env node
+
+'use strict';
+
+// Load modules
+const Main = require('../lib')
+const Bossy = require('bossy');
+const Prompt = require('prompt');
+
+// Declare internals
+
+const internals = {
+    cli: {
+        o: {
+            description: 'Define github organisation',
+            alias: 'org',
+            type: 'string',
+            require: true
+        },
+        g: {
+            description: 'Define a custom github instance URI ',
+            alias: 'github',
+            type: 'string',
+            require: false
+        },
+        a: {
+            description: 'Define if you would like to be prompted for https credentials',
+            alias: 'auth',
+            type: 'boolean',
+            require: false
+        },
+        f: {
+            description: 'Define an output file',
+            alias: 'output-file',
+            type: 'string',
+            require: false
+        }
+    }
+};
+
+
+internals.run = function () {
+
+    const args = Bossy.parse(internals.cli);
+
+    if (args instanceof Error) {
+        console.error(args.message + '\n');
+        return;
+    }
+
+    let outputFile = 'np-dep.dot';
+    if (args.f) {
+        outputFile = args.f;
+    }
+
+    let auth;
+    if (args.a) {
+        const promptOptions ={
+            properties: {
+                username: {
+                    required: true
+                },
+                password: {
+                    required: true,
+                    hidden: true
+                }
+            }
+        }
+
+        Prompt.start();
+
+        console.log('Please provide username & password')
+        Prompt.get(promptOptions, function (err, result) {
+
+            auth = {
+                username: result.username,
+                password: result.password
+            }
+
+            Main.writeOrgDotFile(args.o, args.g, outputFile, auth, internals.finished);
+        });
+    } else {
+        Main.writeOrgDotFile(args.o, args.g, outputFile, auth, internals.finished);
+    }
+};
+
+
+internals.finished = function (err, results) {
+    if(err) {
+        console.error(err);
+        process.exit(1);
+    }
+    console.log(`Dot file successfully created at ${results}`);
+    process.exit();
+}
+
+
+internals.run();
