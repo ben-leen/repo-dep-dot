@@ -1,6 +1,6 @@
 {
   "name": "repo-dep-dot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Creates dot file to visualize dependencies between repos",
   "main": "lib/index.js",
   "scripts": {
