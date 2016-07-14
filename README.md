@@ -24,4 +24,4 @@ E.g.: `dot -Tsvg np-dep.dot -o np-dep.dot.svg`
 You may run into rate limits if you execute on a very big organization, multiple times.  
 Rate limits are higher if you authenticate.
 
-![Alt text](circo_hapijs.svg "HapiJs")
+![Alt text](https://cdn.rawgit.com/benleen/repo-dep-dot/master/circo_hapijs.svg "HapiJs")
