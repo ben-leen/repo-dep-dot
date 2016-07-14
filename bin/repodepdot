@@ -48,7 +48,7 @@ internals.run = function () {
         return;
     }
 
-    let outputFile = 'np-dep.dot';
+    let outputFile = args.o + '.dot';
     if (args.f) {
         outputFile = args.f;
     }
