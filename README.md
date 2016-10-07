@@ -14,6 +14,10 @@ Options:
   -g, --github         Define a custom github instance URI
   -a, --auth           Define if you would like to be prompted for https credentials
   -f, --output-file    Define an output file
+  
+Example:
+
+  repodepdot -o myorg -g https://github.mydomain.com/api/v3/ -a -f np-dep.dot
  ```
 
 - Use one of the various graphviz commands to generate a visualization.  
